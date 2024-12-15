@@ -1,22 +1,15 @@
 import express from "express";
 import { DBConnect } from "./config/database";
-import { IUserInput, User } from "./models/user";
+
+import cookieParser from "cookie-parser";
+import apiRouter from "./routes";
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-app.post("/user", async (req, res) => {
-  try {
-    console.log("body is ",req.body['firstName'])
-    // const user = new User<IUserInput>(req.body);
-    // await user.save();
-    // await User.findOneAndUpdate({firstName:"bhagavan"},{lastName:"M"},)
-    res.send("created successfully");
-  } catch (err) {
-    console.log("error is ", err);
-  } 
-});
+app.use("/", apiRouter);
 
 DBConnect()
   .then(() => {
