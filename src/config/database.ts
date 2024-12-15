@@ -6,5 +6,4 @@ export const DBConnect = async () => {
     console.log("key is ",process.env.MONGO_URL)
     await mongoose.connect(process.env.MONGO_URL as string);
     console.log("Connected to DB")
-
 };
